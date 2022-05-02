@@ -1,0 +1,25 @@
+[Desktop Entry]
+X-SnapInstanceName=code
+Name=Visual Studio Code
+Comment=Code Editing. Redefined.
+NoDisplay=false
+GenericName=Text Editor
+Exec=/snap/bin/code
+Icon=/snap/code/current/meta/gui/com.visualstudio.code.png
+Type=Application
+StartupNotify=false
+StartupWMClass=Code
+Categories=Utility;TextEditor;Development;IDE;
+MimeType=text/plain;inode/directory;application/x-code-workspace;
+Keywords=vscode;
+Actions=new-project;scrap;
+
+[Desktop Action new-project]
+Name=New Project
+Exec=/bin/bash /home/jack/.local/bin/new-vscode-project
+Icon=/snap/code/current/meta/gui/com.visualstudio.code.png
+
+[Desktop Action scrap]
+Name=Open Scrap Folder
+Exec=/snap/bin/code /home/jack/Documents/Scrap/scrap.code-workspace
+Icon=/snap/code/current/meta/gui/com.visualstudio.code.png

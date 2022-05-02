@@ -1,0 +1,52 @@
+#!/bin/bash
+
+findOutput=$(find "/home/jack/Code Project Templates" -maxdepth 1 -type d -printf "|%P")
+typeOptions=Empty${findOutput:1}
+
+result=$(zenity --class Code --forms --title "New Project" --text="Create new project" --add-entry="Name" --add-combo="Type" --add-entry="Git repo (optional)" --combo-values "$typeOptions")
+
+if [[ "$result" ]]
+then
+    name=$(echo $result | python3 -c "print(input().split('|')[0])")
+    type=$(echo $result | python3 -c "print(input().split('|')[1])")
+    repo=$(echo $result | python3 -c "print(input().split('|')[2])")
+
+    if [[ -z "$name" ]]
+    then
+        echo "no entry"
+        exit 1
+    fi
+
+    echo "Name: $name"
+    cd ~/Code
+    mkdir "$name"
+    cd "$name"
+    mkdir Codebase
+    cd Codebase    
+
+    if [[ "$type" = "Empty" ]]
+    then
+        type=""
+    fi
+
+    if [[ ! -z "$repo" ]]
+    then
+        type=""
+    fi
+
+    if [[ ! -z "$type" ]]
+    then
+        cp -r "/home/jack/Code Project Templates/$type/". .
+    fi
+
+    code . &
+
+    if [[ ! -z "$repo" ]]
+    then
+        git clone "$repo" .
+    else
+        git init
+    fi
+else
+    echo "no entry"
+fi
